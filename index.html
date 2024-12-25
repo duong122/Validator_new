@@ -29,7 +29,7 @@
     
           <div class="form-group">
             <label for="password" class="form-label">Mật khẩu</label>
-            <input type="password" id="password" rules="required|min:6" name="password" placeholder="Nhập mật khẩu" class="form-control">
+            <input type="password" id="password" rules="required|min:2" name="password" placeholder="Nhập mật khẩu" class="form-control">
             <span class="form-message"></span>
           </div>
 
@@ -40,7 +40,12 @@
     <script src="./assets/js/index.js"></script>
     <script>
       
-      Validator('#form-1')
+      Validator('#form-1', {
+        onSubmit: function (data) {
+          console.log(data)
+        }
+      })
+
     
     </script>
 </body>
