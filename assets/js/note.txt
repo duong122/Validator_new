@@ -1,0 +1,7 @@
+__ Các bước tạo ra một thư viện validate đơn giản
+
+1. Tạo constructor function Valildator nhân vào selector là một chuỗi
+2. Lấy ra các trường cần kiểm tra
+3. Lấy ra các luật mà người dùng truyền vào trong input
+4. Quy định các luật để validate
+5. Lấy ra các luật mà người dùng đã truyền vào thông qua attribute value 'rules'
