@@ -46,6 +46,7 @@ function Validator(selector, options) {
 
         // Lấy ra các input mà có rules và name
         var inputs =document.querySelectorAll('[name][rules]')
+        console.log(inputs)
 
         // Các gán các rule function của các input tương ứng vào thành một cặp key-value trong inputRules
         Array.from(inputs).forEach((input) => {
@@ -87,7 +88,7 @@ function Validator(selector, options) {
         let rules = inputRules[event.target.name]
         let errorMessage
 
-        rules.find((rule) => {
+        rules.find(function (rule) {
             errorMessage = rule(event.target.value)
             return errorMessage
         })
@@ -118,9 +119,10 @@ function Validator(selector, options) {
         } 
     }
 
+    
     // Xử lý hành vi submit form
     formElements.onsubmit = (event) => {
-        event.preventDefault()
+        event.preventDefault()       
 
         var inputs = document.querySelectorAll('[name][rules]')   
         var isAllValidate = true

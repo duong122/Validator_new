@@ -37,14 +37,11 @@
         </form>
     </div>
 
-    <!-- <script src="./assets/js/index.js"></script> -->
-     <script src="./assets/js/source.js"></script>
+    <script src="./assets/js/index.js"></script>
+     <!-- <script src="./assets/js/source.js"></script> -->
     <script>    
-      Validator('#form-1', {
-        onSubmit: function (data) {
-          console.log(data)
-        }
-      })
+      var form = new Validator('#form-1')
+
     </script>
 </body>
 </html>	

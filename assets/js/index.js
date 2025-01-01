@@ -1,6 +1,8 @@
 
 
-function Validator(formSelector, options = {}) {
+function Validator(formSelector, options) {
+    var _this = this
+    var formRules = {}
 
     function getParentElement(element, selector) {
         while (element.parentElement) {
@@ -10,8 +12,6 @@ function Validator(formSelector, options = {}) {
             element = element.parentElement
         }
     }
-
-    var formRules = {}
 
     var validatorRules = {
         required: function (value) {
@@ -35,6 +35,7 @@ function Validator(formSelector, options = {}) {
 
     // Lấy ra element trong dom theo `formSelector` 
     var formElement = document.querySelector(formSelector)
+    console.log(formElement)
 
     if (formElement) {
         var inputs = formElement.querySelectorAll('[name][rules]')
@@ -69,15 +70,15 @@ function Validator(formSelector, options = {}) {
 
         }
 
-        // Hàm clear Message lỗi
+        // Hàm thực hiện lỗi validate
         function handleValidate(event) {
             var rules = formRules[event.target.name]
             var errorMessage
 
-            rules.find(function (rule) {
+            for (rule of rules) {
                 errorMessage = rule(event.target.value)
-                return errorMessage
-            })
+                if (errorMessage) break;
+            }
 
             if (errorMessage) {
                 var formGroup = getParentElement(event.target, '.form-group')
@@ -103,10 +104,12 @@ function Validator(formSelector, options = {}) {
         }
     }
 
-
+    
     // Xử lý hành vi submit của form
     formElement.onsubmit = function (event) {
         event.preventDefault()
+
+        console.log(_this) 
 
         var inputs = formElement.querySelectorAll('[name][rules]')
         var isValid = true;
@@ -119,7 +122,7 @@ function Validator(formSelector, options = {}) {
 
         // Khi không có lỗi thì submit form
         if (isValid) {
-            if (typeof options.onSubmit === 'function') {
+            if (typeof _this.onSubmit === 'function') {
                 var enableInputs = formElement.querySelectorAll('[name]')
                 var formValues = Array.from(enableInputs).reduce((values, input) => {
                     values[input.name] = input.value
@@ -127,7 +130,7 @@ function Validator(formSelector, options = {}) {
                 }, {})
 
                 // Gọi lại hàm submit và trả về giá trị của form
-                options.onSubmit(formValues)
+                _this.onSubmit(formValues)
             } else {
                 formElement.submit()
             }
